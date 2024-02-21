@@ -13,7 +13,7 @@ public class Term
         this.coefficient = 1;
     }
 
-    public Term(coefficient, exponent)
+    public Term(int coefficient, int exponent)
     {
         this.coefficient = coefficient;
         this.exponent = exponent;
@@ -34,17 +34,17 @@ public class Term
 
 
 
-    public void setExponent(exponent)
+    public void setExponent(int exponent)
     {
         this.exponent = exponent;
     }
 
-    public void setCoefficient(coefficient)
+    public void setCoefficient(int coefficient)
     {
         this.coefficient = coefficient;
     }
 
-    public void setAll(coefficient, exponent)
+    public void setAll(int coefficient, int exponent)
     {
         this.exponent = exponent;
         this.coefficient = coefficient;
