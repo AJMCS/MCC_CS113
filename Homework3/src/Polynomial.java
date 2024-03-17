@@ -100,5 +100,31 @@ public class Polynomial
     {
         polynomial.clear();
     }
+
+    @Override
+    public String toString()
+    {
+        String toString;
+
+       if(getNumTerms() == 0)
+       {
+            return "0";
+       }
+       else
+       {
+        for(int i = 0; i < getNumTerms();i++)
+        {
+            if(toString.(this.concat(getTerm(0).getCoefficient() > 0))
+            {
+
+            }
+        }
+       }
+       
+
+       
+       
+        return "";
+    }
     
 }
