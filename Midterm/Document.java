@@ -1,6 +1,7 @@
 public class Document
 {
 
+    //private variables
     private String name;
     private int pages;
 
@@ -8,8 +9,8 @@ public class Document
     //Empty Constructor
     public Document()
     {
-        this.name = "";
-        this.pages = 0;
+        this.name = "New Document";
+        this.pages = 1;
     }
 
     //Full Contructor
@@ -19,12 +20,14 @@ public class Document
         this.pages = pages;
     }
 
+    //add document via object
     public Document(Document doc)
     {
         this.name = doc.getName();
         this.pages = doc.getPages();
     }
 
+    //Add document via number of pages
     public Document(int pages)
     {
         this.name = "Untitled";
@@ -32,24 +35,31 @@ public class Document
     }
 
 
+    //Page setter
     public void setPages(int pages)
     {
         this.pages = pages;
     }
+    
+    //Page getter
     public int getPages()
     {
         return pages;
     }
 
+    //Name setter
     public void setName(String name)
     {
         this.name = name;
     }
+    
+    //Name getter
     public String getName()
     {
         return name;
     }
 
+    //Printout
     public String toString()
     {
         return "Document name: " + name + " | Page Count: " + pages;
