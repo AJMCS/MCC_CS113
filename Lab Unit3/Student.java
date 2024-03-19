@@ -94,12 +94,34 @@ public class Student
     {
         this.name = name;
     }
+  
+    public void setGrade(int idx, double grade)
+    {
+        if(grade >= -1 && grade <= 100)
+        {
+            this.grades[idx] = grade;
+        }else
+        {
+            throw new IllegalArgumentException("Invalid entry: Grade must be between -1 and 100."); 
+        }
+        
+    }
 
     public String getName()
     {
         return name;
     }
-  
+
+    public double getGrade(int idx)
+    {
+        if(idx < grades.length)
+        {
+            return grades[idx];
+        }else
+        {
+            throw new IllegalArgumentException("There is no grade at the index provided.");
+        }
+    }
     
     public double getAverageGrade()
     {
