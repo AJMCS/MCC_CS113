@@ -31,7 +31,7 @@ public class Student
 
 
     //Student constructor 1 grades
-    public Student(String name, int grade1)
+    public Student(String name, double grade1)
     {
         this.name = name;
         grades[0] = grade1;
@@ -43,7 +43,7 @@ public class Student
     
 
     //Student constructor 2 grades
-    public Student(String name, int grade1, int grade2)
+    public Student(String name, double grade1, double grade2)
     {
         this.name = name;
         grades[0] = grade1;
@@ -55,7 +55,7 @@ public class Student
     
 
     //Student constructor 3 grades
-    public Student(String name, int grade1, int grade2, int grade3)
+    public Student(String name, double grade1, double grade2, double grade3)
     {
         this.name = name;
         grades[0] = grade1;
@@ -66,7 +66,7 @@ public class Student
     }
     
     //Student constructor 4 grades
-    public Student(String name, int grade1, int grade2, int grade3, int grade4)
+    public Student(String name, double grade1, double grade2, double grade3, double grade4)
     {
         this.name = name;
         grades[0] = grade1;
@@ -78,7 +78,7 @@ public class Student
     
 
     //Student constructor 5 grades
-    public Student(String name, int grade1, int grade2, int grade3, int grade4, int grade5)
+    public Student(String name, double grade1, double grade2, double grade3, double grade4, double grade5)
     {
         this.name = name;
         grades[0] = grade1;
@@ -89,7 +89,7 @@ public class Student
     }
 
 
-    //Getter and setter for name
+    //Setters
     public void setName(String name)
     {
         this.name = name;
@@ -107,6 +107,7 @@ public class Student
         
     }
 
+    //Getters
     public String getName()
     {
         return name;
