@@ -1,4 +1,4 @@
-public class main 
+public class StudentGradesCalculator 
 {
     
     public static void main(String[] args) 
