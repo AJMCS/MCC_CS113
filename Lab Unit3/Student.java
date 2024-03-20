@@ -145,10 +145,7 @@ public class Student
         {
             this.averageGrade = gradeSum / divisor;
             return averageGrade;
-        }
-            
-        
-            
+        }      
         
     }
 

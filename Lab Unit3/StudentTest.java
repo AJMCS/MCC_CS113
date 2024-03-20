@@ -6,15 +6,17 @@ import org.junit.*;
 public class StudentTest 
 {
     private static double[][] GRADES = {
-        {0, 0, 0, 0, 0}, // Student 1
-        {0, 0, 0, 0, 0}, // Student 2
-        {0, 0, 0, 0, 0}, // Student 3
-        {0, 0, 0, 0, 0}, // Student 4
-        {0, 0, 0, 0, 0}, // Student 5
-        {0, 0, 0, 0, 0}, // Student 6
+        {-1, 95, 75, 88, 66},  // Student 1
+        {99, 85, 98, 65, 98},  // Student 2
+        {34, 40, 72, 66, 15},  // Student 3
+        {94, -1, 100, -1, 89}, // Student 4
+        {99, 78, 87, 93, 90},  // Student 5
+        {99, 98, 100, 96, -1}, // Student 6
+        {0, 98, 88, 96, 12}    // Student 6
     };
 
-    private static String[] STUDENT_NAMES = {"Student1", "Student2", "Student3", "Student4", "Student5"};
+    private static final String[] STUDENT_NAMES = {"Student1", "Student2", "Student3", "Student4", "Student5"};
+    public static final double[] STUDENT_ARR_AVERAGE_GRADES = {-1, -1, 34, 94, 88, 98.25, 58.8};
   
 
     private static final Student[] STUDENT_ARR = {
@@ -22,9 +24,10 @@ public class StudentTest
          new Student(),
          new Student("Polo Mariscal"),
          new Student("Eduardo Mariscal", GRADES[2][0]),
-         new Student("Mike Paulding", GRADES[3][0], GRADES[3][1], GRADES[3][2]),
-         new Student("Mark Stramaglia", GRADES[4][0], GRADES[4][1], GRADES[4][2], GRADES[4][3]),
-         new Student("Brighu Celly", GRADES[5][0], GRADES[5][1], GRADES[5][2], GRADES[5][3], GRADES[5][4])
+         new Student("Mike Paulding", GRADES[3][0], GRADES[3][1]),
+         new Student("Mark Stramaglia", GRADES[4][0], GRADES[4][1], GRADES[4][2]),
+         new Student("Brighu Celly", GRADES[5][0], GRADES[5][1], GRADES[5][2], GRADES[5][3]),
+         new Student("Brighu Celly", GRADES[6][0], GRADES[6][1], GRADES[6][2], GRADES[6][3], GRADES[6][4])
     };
 
     private static final Student[] NO_GRADES = {
@@ -214,13 +217,25 @@ public class StudentTest
     @Test
     public void getAverageGradeTest()
     {
+        for(int i = 0; i < STUDENT_ARR.length; i++)
+        {
+
+            Assert.assertEquals(STUDENT_ARR_AVERAGE_GRADES[i], STUDENT_ARR[i].getAverageGrade(), 0);
+        }
+        
+        
 
     }
 
     @Test
     public void getAverageGradeEmptyArrayTest()
     {
+        for(int i = 0; i < NO_GRADES.length; i++)
+        {
 
+            Assert.assertEquals(-1, NO_GRADES[i].getAverageGrade(), 0);
+        }
+        
     }
 
 
