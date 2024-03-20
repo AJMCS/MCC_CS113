@@ -27,7 +27,7 @@ public class StudentTest
          new Student("Mike Paulding", GRADES[3][0], GRADES[3][1]),
          new Student("Mark Stramaglia", GRADES[4][0], GRADES[4][1], GRADES[4][2]),
          new Student("Brighu Celly", GRADES[5][0], GRADES[5][1], GRADES[5][2], GRADES[5][3]),
-         new Student("Brighu Celly", GRADES[6][0], GRADES[6][1], GRADES[6][2], GRADES[6][3], GRADES[6][4])
+         new Student("Zika Perovic", GRADES[6][0], GRADES[6][1], GRADES[6][2], GRADES[6][3], GRADES[6][4])
     };
 
     private static final Student[] NO_GRADES = {
