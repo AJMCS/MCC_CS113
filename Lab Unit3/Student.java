@@ -3,7 +3,8 @@ public class Student
     //Initialize all private variables.
     private String name;
     private double averageGrade;
-    private double[] grades = new double[5];
+    private static final int NUM_OF_GRADES = 5;
+    private double[] grades = new double[NUM_OF_GRADES];
 
     
     //Student constructor 0 grades

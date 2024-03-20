@@ -1,6 +1,7 @@
 public class StudentGradesCalculator 
 {
     static final int NUM_OF_SUBJECTS = 5;
+    static final int NUM_OF_STUDENTS = 5;
 
     public static void main(String[] args) 
     {
@@ -11,15 +12,13 @@ public class StudentGradesCalculator
         
         
         //Create student array
-        Student studentArr[] = {
-            new Student(),
-            new Student(),
-            new Student(),
-            new Student(),
-            new Student(),
-            new Student(),
-        };
+        Student studentArr[] = new Student[NUM_OF_STUDENTS];
+        for(int i = 0; i < studentArr.length; i++)
+        {
+            studentArr[i] = new Student();
+        }
 
+        
         String[] namesArr = {"Michael Jackson", "Zika Perovic", "Polo Mariscal", "Eduardo Mariscal", "Mike Paulding", "Mark Stramaglia", "Brighu Celly"};
 
         //Grades
