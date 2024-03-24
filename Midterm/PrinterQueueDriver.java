@@ -1,16 +1,17 @@
 import java.util.Scanner;
+
 public class PrinterQueueDriver 
 { 
     public static void displayMenu(int[] options, String[] items)
+    {
+        System.out.println("Printer Queue Menu");
+        System.out.println("==================");
+        
+        for(int i = 0; i < options.length; i++)
         {
-            System.out.println("Printer Queue Menu");
-            System.out.println("==================");
-            
-            for(int i = 0; i < options.length; i++)
-            {
-                System.out.printf("%d. %s\n", options[i], items[i]);
-            }
+            System.out.printf("%d. %s\n", options[i], items[i]);
         }
+    }
 
     
 
@@ -39,7 +40,7 @@ public class PrinterQueueDriver
         switch(userChoice)
         {
             case 1:
-            System.out.println("---- " + menuItems[0] + " ----");
+            System.out.println("---- " + menuItems[userChoice - 1] + " ----"); //first case returns first index in array by subtracting 1
 
             System.out.println("Enter name of document:");
             docName = keyboard.nextLine();
@@ -58,7 +59,7 @@ public class PrinterQueueDriver
 
 
             case 2:
-            System.out.println("---- " + menuItems[1] + " ----");
+            System.out.println("---- " + menuItems[userChoice - 1] + " ----");
 
             System.out.println("Enter name of document:");
             docName = keyboard.nextLine();
@@ -74,7 +75,7 @@ public class PrinterQueueDriver
 
 
             case 3:
-            System.out.println("---- " + menuItems[2] + " ----");
+            System.out.println("---- " + menuItems[userChoice - 1] + " ----");
 
             System.out.println("Enter name of document:");
             docName = keyboard.nextLine();
@@ -91,7 +92,7 @@ public class PrinterQueueDriver
 
 
             case 4:
-            System.out.println("---- " + menuItems[3] + " ----");
+            System.out.println("---- " + menuItems[userChoice - 1] + " ----");
 
             queue.removeDocument();
             System.out.println("The document has been removed.");
@@ -102,7 +103,7 @@ public class PrinterQueueDriver
 
 
            case 5:
-           System.out.println("---- " + menuItems[4] + " ----");
+           System.out.println("---- " + menuItems[userChoice - 1] + " ----");
 
            System.out.println("The size of the queue is: " + queue.getQueueSize());
            System.out.println();
@@ -111,7 +112,7 @@ public class PrinterQueueDriver
 
 
            case 6:
-           System.out.println("---- " + menuItems[5] + " ----");
+           System.out.println("---- " + menuItems[userChoice - 1] + " ----");
 
            queue.printDocument();
            System.out.println();
@@ -120,7 +121,7 @@ public class PrinterQueueDriver
 
 
            case 7:
-           System.out.println("---- " + menuItems[6] + " ----");
+           System.out.println("---- " + menuItems[userChoice - 1] + " ----");
 
            queue.getQueue();
            System.out.println();
@@ -134,14 +135,15 @@ public class PrinterQueueDriver
 
         }
 
+
         displayMenu(menuOptions, menuItems);
 
         userChoice = keyboard.nextInt();
         keyboard.nextLine();
 
-        if(userChoice == 8)
+        if(userChoice == menuItems.length)
         {
-            System.out.println("---- " + menuItems[7] + " ----");
+            System.out.println("---- " + menuItems[userChoice - 1] + " ----");
             System.out.println("Ending Program...");
         }
         

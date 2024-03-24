@@ -24,14 +24,27 @@ public class PrinterQueue
     //Object constructor version
     public void removeDocument(Document d)
     {
-        queue.remove(d);
+        if(queue.contains(d))
+        {
+            queue.remove(d);
+        }else
+        {
+            System.out.println("Document does not exist in the queue.");
+        }
     }
 
 
     //Empty constructor version
     public void removeDocument ()
     {
-        queue.poll();
+        if(this.getQueueSize() == 0)
+        {
+            System.out.println("This Queue is currently Empty");
+        }else
+        {
+            queue.poll();
+        }
+        
     }
 
     
