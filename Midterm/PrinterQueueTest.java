@@ -67,28 +67,21 @@ public class PrinterQueueTest
     }
 
     @Test
-    public void addDocumentThrowExceptionTest()
+    public void DocumentThrowExceptionTest()
     {
-        //Instantiate a queue
-        PrinterQueue queue = new PrinterQueue();
-
-        //Make some document objects
-        Document doc3 = new Document(0);
-        Document doc4 = new Document(-7);
-
-
-
-        //check if an exceptio is thrown when trying to add a document with 0 pages
+       
+        //check if an exception is thrown when trying to create a document with 0 pages
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            queue.addDocument(doc3);
+            Document doc3 = new Document(0);
         });
+
         //Check if we received the correct exception text
         assertEquals("The number of pages cannot be less the or equal to zero.", exception.getMessage());
 
 
-        //Check if an exceptio is thrown when trying to add a document with 0 pages
+        //Check if an exceptio is thrown when trying to add a document with negative pages
         exception = assertThrows(IllegalArgumentException.class, () -> {
-            queue.addDocument(doc4);
+            Document doc4 = new Document(-7);
         });
         //Check if we received the correct exception text
         assertEquals("The number of pages cannot be less the or equal to zero.", exception.getMessage());

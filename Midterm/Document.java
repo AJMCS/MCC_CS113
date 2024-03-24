@@ -16,8 +16,16 @@ public class Document
     //Full Contructor
     public Document(String name, int pages)
     {
-        this.name = name;
-        this.pages = pages;
+        
+        if(pages <= 0)
+        {
+            throw new IllegalArgumentException("The number of pages cannot be less the or equal to zero.");
+        }else
+        {
+            this.name = name;
+            this.pages = pages;
+        }
+        
     }
 
     //add document via object
@@ -30,8 +38,16 @@ public class Document
     //Add document via number of pages
     public Document(int pages)
     {
-        this.name = "Untitled";
-        this.pages = pages;
+        
+        if(pages <= 0)
+        {
+            throw new IllegalArgumentException("The number of pages cannot be less the or equal to zero.");
+        }else
+        {
+            this.name = "Untitled";
+            this.pages = pages;
+        }
+        
     }
 
 

@@ -1,7 +1,88 @@
+import java.util.Scanner;
 public class PrinterQueueDriver 
 { 
+    public static void displayMenu(int[] options, String[] items)
+        {
+        System.out.println("Printer Queue Menu");
+        System.out.println("==================");
+        
+        for(int i = 0; i < options.length; i++)
+        {
+            System.out.printf("%d. %s\n", options[i], items[i]);
+        }
+    }
+
+
     public static void main(String[] args) 
     {
+       int userChoice = 0;
+       int[] menuOptions = {1, 2, 3, 4, 5, 6, 7, 8};
+       String[] menuItems = {"addDocument(E element)", "addDocument(String name, int pages)", "removeDocument(Document d)", "removeDocument()", "getQueueSize()", "printDocument()", "getQueue()", "Exit Program"};
+       PrinterQueue queue = new PrinterQueue();
+       int exit = menuOptions.length - 1;
+       String docName = "";
+       int docPages = 0;
+       
+       
+       displayMenu(menuOptions, menuItems);
+
+       Scanner keyboard = new Scanner(System.in);
+
+       userChoice = keyboard.nextInt();
+
+       while(userChoice != exit)
+       {
+
+        switch(userChoice)
+        {
+            case 1:
+
+            System.out.println("Enter name of document:");
+            docName = keyboard.nextLine();
+            System.out.println("Enter page count of document:");
+            docPages = keyboard.nextInt();
+
+            Document d = new Document(docName, docPages);
+
+            queue.addDocument(d);
+            break;
+
+            case 2:
+            
+            System.out.println("Enter name of document:");
+            docName = keyboard.nextLine();
+            System.out.println("Enter page count of document:");
+            docPages = keyboard.nextInt();
+
+            queue.addDocument(docName, docPages);
+
+        }
+
+
+       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+       
         System.out.println("Driver for PrinterQueue Class\n\n");
 
         //Create documents using all three constructors for the documents class
@@ -80,7 +161,7 @@ public class PrinterQueueDriver
 
 
 
-
+        
 
     }
 }
