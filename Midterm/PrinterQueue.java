@@ -43,13 +43,20 @@ public class PrinterQueue
     //prints doc and removes it. void method so it doesn't return anything anyway
     public void printDocument()
     {
-        queue.poll();
+        Document doc = queue.poll();
+        System.out.println(doc);
     }
 
     //Returns queue. Useful for accessing queue methods from the PrinterQueue class level
     Queue<Document> getQueue()
     {
-        return this.queue;
+        for(int i = 0; i < this.getQueueSize(); i++)
+        {
+            System.out.println(queue.toArray()[i]);
+        }
+        return queue;
     }
+
+
 
 }

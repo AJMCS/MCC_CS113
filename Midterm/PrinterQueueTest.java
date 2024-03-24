@@ -71,7 +71,8 @@ public class PrinterQueueTest
     {
        
         //check if an exception is thrown when trying to create a document with 0 pages
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> 
+        {
             Document doc3 = new Document(0);
         });
 
@@ -80,11 +81,14 @@ public class PrinterQueueTest
 
 
         //Check if an exceptio is thrown when trying to add a document with negative pages
-        exception = assertThrows(IllegalArgumentException.class, () -> {
+        exception = assertThrows(IllegalArgumentException.class, () -> 
+        {
             Document doc4 = new Document(-7);
         });
         //Check if we received the correct exception text
         assertEquals("The number of pages cannot be less the or equal to zero.", exception.getMessage());
+
+        
     }
 
     @Test
