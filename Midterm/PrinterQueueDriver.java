@@ -13,16 +13,14 @@ public class PrinterQueueDriver
         }
     }
 
-    
-
 
     public static void main(String[] args) 
     {
        int userChoice = 0;
-       int[] menuOptions = {1, 2, 3, 4, 5, 6, 7, 8};
-       String[] menuItems = {"addDocument(E element)", "addDocument(String name, int pages)", "removeDocument(Document d)", "removeDocument()", "getQueueSize()", "printDocument()", "getQueue()", "Exit Program"};
+       int[] menuOptions = {1, 2, 3, 4, 5, 6, 7};
+       String[] menuItems = {"addDocument(E element)", "addDocument(String name, int pages)", "removeDocument()", "getQueueSize()", "printDocument()", "getQueue()", "Exit Program"};
        PrinterQueue queue = new PrinterQueue();
-       int exit = menuOptions.length - 1;
+       int exit = menuOptions.length;
        String docName = "";
        int docPages = 0;
        
@@ -40,18 +38,20 @@ public class PrinterQueueDriver
         switch(userChoice)
         {
             case 1:
-            System.out.println("---- " + menuItems[userChoice - 1] + " ----"); //first case returns first index in array by subtracting 1
+            System.out.println("\n---- " + menuItems[userChoice - 1] + " ----"); //first case returns first index in array by subtracting 1
 
             System.out.println("Enter name of document:");
             docName = keyboard.nextLine();
+            System.out.println();
 
             System.out.println("Enter page count of document:");
             docPages = keyboard.nextInt();
+            System.out.println();
 
             Document d1 = new Document(docName, docPages);
 
             queue.addDocument(d1);
-            System.out.println("The document has been added.");
+            System.out.println("The document has been added.\n");
             System.out.println("The size of the queue is now: " + queue.getQueueSize());
             System.out.println();
             break;
@@ -59,15 +59,18 @@ public class PrinterQueueDriver
 
 
             case 2:
-            System.out.println("---- " + menuItems[userChoice - 1] + " ----");
+            System.out.println("\n---- " + menuItems[userChoice - 1] + " ----");
 
             System.out.println("Enter name of document:");
             docName = keyboard.nextLine();
+            System.out.println();
+
             System.out.println("Enter page count of document:");
             docPages = keyboard.nextInt();
+            System.out.println();
 
             queue.addDocument(docName, docPages);
-            System.out.println("The document has been added.");
+            System.out.println("The document has been added.\n");
             System.out.println("The size of the queue is now: " + queue.getQueueSize());
             System.out.println();
             break;
@@ -75,16 +78,10 @@ public class PrinterQueueDriver
 
 
             case 3:
-            System.out.println("---- " + menuItems[userChoice - 1] + " ----");
+            System.out.println("\n---- " + menuItems[userChoice - 1] + " ----");
 
-            System.out.println("Enter name of document:");
-            docName = keyboard.nextLine();
-            System.out.println("Enter page count of document:");
-            docPages = keyboard.nextInt();
-            
-            Document d2 = new Document(docName, docPages);
-            queue.removeDocument(d2);
-            System.out.println("The document has been removed.");
+            queue.removeDocument();
+            System.out.println("The document has been removed.\n");
             System.out.println("The size of the queue is now: " + queue.getQueueSize());
             System.out.println();
             break;
@@ -92,19 +89,18 @@ public class PrinterQueueDriver
 
 
             case 4:
-            System.out.println("---- " + menuItems[userChoice - 1] + " ----");
+            System.out.println("\n---- " + menuItems[userChoice - 1] + " ----");
 
-            queue.removeDocument();
-            System.out.println("The document has been removed.");
-            System.out.println("The size of the queue is now: " + queue.getQueueSize());
+            System.out.println("The size of the queue is: " + queue.getQueueSize());
             System.out.println();
             break;
 
 
 
            case 5:
-           System.out.println("---- " + menuItems[userChoice - 1] + " ----");
+           System.out.println("\n---- " + menuItems[userChoice - 1] + " ----");
 
+           System.out.println(queue.printDocument() + "\n");
            System.out.println("The size of the queue is: " + queue.getQueueSize());
            System.out.println();
            break;
@@ -112,16 +108,7 @@ public class PrinterQueueDriver
 
 
            case 6:
-           System.out.println("---- " + menuItems[userChoice - 1] + " ----");
-
-           queue.printDocument();
-           System.out.println();
-           break;
-
-
-
-           case 7:
-           System.out.println("---- " + menuItems[userChoice - 1] + " ----");
+           System.out.println("\n---- " + menuItems[userChoice - 1] + " ----");
 
            queue.getQueue();
            System.out.println();
@@ -130,9 +117,8 @@ public class PrinterQueueDriver
 
 
            default:
-           System.out.println("Invalid entry: Please try again.");
+           System.out.println("\nInvalid Entry: Valid Entries are numbers from 1 to " + menuOptions.length + "\n\nPlease try again.\n");
            System.out.println();
-
         }
 
 
@@ -150,7 +136,6 @@ public class PrinterQueueDriver
         
        }
        keyboard.close();
-
     
     }
 }

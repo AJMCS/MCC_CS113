@@ -20,20 +20,6 @@ public class PrinterQueue
             queue.add(doc); 
     }
 
-
-    //Object constructor version
-    public void removeDocument(Document d)
-    {
-        if(queue.contains(d))
-        {
-            queue.remove(d);
-        }else
-        {
-            System.out.println("Document does not exist in the queue.");
-        }
-    }
-
-
     //Empty constructor version
     public void removeDocument ()
     {
@@ -43,8 +29,7 @@ public class PrinterQueue
         }else
         {
             queue.poll();
-        }
-        
+        } 
     }
 
     
@@ -54,10 +39,10 @@ public class PrinterQueue
     }
 
     //prints doc and removes it. void method so it doesn't return anything anyway
-    public void printDocument()
+    public String printDocument()
     {
         Document doc = queue.poll();
-        System.out.println(doc);
+        return doc.toString();
     }
 
     //Returns queue. Useful for accessing queue methods from the PrinterQueue class level

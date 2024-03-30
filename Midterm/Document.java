@@ -1,6 +1,5 @@
 public class Document
 {
-
     //private variables
     private String name;
     private int pages;
@@ -9,7 +8,7 @@ public class Document
     //Empty Constructor
     public Document()
     {
-        this.name = "New Document";
+        this.name = "Untitled";
         this.pages = 1;
     }
 
@@ -24,8 +23,7 @@ public class Document
         {
             this.name = name;
             this.pages = pages;
-        }
-        
+        }   
     }
 
     //add document via object
@@ -80,10 +78,4 @@ public class Document
     {
         return "Document name: " + name + " | Page Count: " + pages;
     }
-
-
-
-
-
-
 }
