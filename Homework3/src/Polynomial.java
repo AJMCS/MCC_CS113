@@ -104,27 +104,36 @@ public class Polynomial
     @Override
     public String toString()
     {
-        String toString;
+        StringBuilder toString = new StringBuilder();
 
-       if(getNumTerms() == 0)
-       {
+        if(getNumTerms() == 0)
+        {
             return "0";
-       }
+        }
        else
        {
-        for(int i = 0; i < getNumTerms();i++)
-        {
-           // if(toString.(this.concat(getTerm(0).getCoefficient() > 0))
+            for(int i = 0; i < getNumTerms();i++)
             {
-
+                if(i == 0)
+                {
+                    if(this.getTerm(0).getCoefficient() > 0)
+                    {
+                        toString.append(this.getTerm(0).toString().substring(1));
+                    }else
+                    {
+                        toString.append(this.getTerm(i).toString());
+                    }
+                }else if(this.getTerm(i).getCoefficient() > 0)
+                {
+                    toString.append(" + " + this.getTerm(i).toString().substring(1));
+                    
+                }else if(this.getTerm(i).getCoefficient() < 0)
+                {
+                    toString.append(" - " + this.getTerm(i).toString().substring(1));
+                }
             }
         }
-       }
-       
 
-       
-       
-        return "";
+        return toString.toString();
     }
-    
 }
