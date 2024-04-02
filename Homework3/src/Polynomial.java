@@ -114,7 +114,7 @@ public class Polynomial
        {
         for(int i = 0; i < getNumTerms();i++)
         {
-            if(toString.(this.concat(getTerm(0).getCoefficient() > 0))
+           // if(toString.(this.concat(getTerm(0).getCoefficient() > 0))
             {
 
             }
