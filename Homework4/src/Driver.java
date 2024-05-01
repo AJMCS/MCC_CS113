@@ -1,10 +1,6 @@
 
 public class Driver 
 {
-
-    
-    
-
     public static void main(String[] args) 
     {
         
@@ -34,7 +30,6 @@ public class Driver
             poly2.addTerm(polyTerms2[i]);
         }
         
-        
        
         System.out.println("Output for polynomial 1: " + poly1);
         System.out.println("Output for polynomial 2: " + poly2);
@@ -42,15 +37,6 @@ public class Driver
         poly1.add(poly2);
 
         System.out.println("Polynomial 1 + polynomial 2: " + poly1);
-
-
-
-
-
-
-
     }
-    
-
     
 }
