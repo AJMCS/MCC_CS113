@@ -1,5 +1,3 @@
-
-
 import java.util.AbstractSequentialList;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -23,61 +21,106 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
      * Insert an object at the beginning of the list.
      * @param item - the item to be added
      */
-    public void addFirst(E item) {
-        // Your implementation here
+    public void addFirst(E item) 
+    {
+        //Add when linked list is empty (head and tail are null)
+        if(size == 0)
+        {
+            Node<E> temp = new Node<E>(item);
+            head = temp;
+            tail = temp;
+
+           size++; 
+
+        }else //Add when linkedList has at least one element
+        {
+            Node<E> temp = new Node<E>(item);
+            temp.next = head;
+            head.prev = temp;
+            head = temp;
+            
+            size++;
+        }
+        
     }
 
     /**
      * Insert an object at the end of the list.
      * @param item - the item to be added
      */
-    public void addLast(E item) {
+    public void addLast(E item) 
+    {
+        //Add when linked list is empty (head and tail are null)
+        if(size == 0)
+        {
+            Node<E> temp = new Node<E>(item);
+            head = temp;
+            tail = temp;
+
+           size++; 
+
+        }else //Add when linkedList has at least one element
+        {
+            Node<E> temp = new Node<E>(item);
+            temp.prev = tail;
+            tail.next = temp;
+            tail = temp;
+
+            size++;
+        }
         // Your implementation here
+        
+        
     }
 
     /**
      * Get the first element in the list.
      * @return The first element in the list.
      */
-    public E getFirst() {
+    public E getFirst() 
+    {
         // Your implementation here
-        return null; // Placeholder, replace with actual return value
+        return head.data;
     }
 
     /**
      * Get the last element in the list.
      * @return The last element in the list.
      */
-    public E getLast() {
+    public E getLast() 
+    {
         // Your implementation here
-        return null; // Placeholder, replace with actual return value
+        return tail.data; 
     }
 
     /**
      * Return an Iterator to the list
      * @return an Itertor to the list
      */
-    public Iterator<E> iterator() {
+    public Iterator<E> iterator() 
+    {
         // Your implementation here
-        return null; // Placeholder, replace with actual return value
+        return new ListIter(0);
     }
 
     /**
      * Return a ListIterator to the list
      * @return a ListItertor to the list
      */
-    public ListIterator<E> listIterator() {
+    public ListIterator<E> listIterator() 
+    {
         // Your implementation here
-        return null; // Placeholder, replace with actual return value
+        return new ListIter(0);
     }
 
     /** Return a ListIterator that begins at index
      * @param index - The position the iteration is to begin
      * @return a ListIterator that begins at index
      */
-    public ListIterator<E> listIterator(int index) {
+    public ListIterator<E> listIterator(int index) 
+    {
         // Your implementation here
-        return null; // Placeholder, replace with actual return value
+        return new ListIter(index);
     }
 
     /**
@@ -99,7 +142,8 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
      *         of range (i < 0 || i > size())
      */
     @Override
-    public void add(int index, E obj) {
+    public void add(int index, E obj) 
+    {
         // Your implementation here
     }
 
@@ -194,7 +238,8 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
          * @return true if call to next will not throw an exception
          */
         @Override
-        public boolean hasNext() {
+        public boolean hasNext() 
+        {
             return nextItem != null;
         }
 
@@ -217,9 +262,10 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
          * @return true if call to previous will not throw an exception
          */
         @Override
-        public boolean hasPrevious() {
+        public boolean hasPrevious() 
+        {
         // Your implementation here
-        return true; // Placeholder, replace with actual return value
+        return (nextItem == null && size !=0) || (nextItem != null && nextItem.prev != null);
        }
 
         /**
@@ -238,7 +284,7 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
         @Override
         public int previousIndex() {
        // Your implementation here
-	        return 0; // Placeholder, replace with actual return value	
+            return this.index-1;
         }
         /**
          * Move the iterator backward and return the previous item.
@@ -264,9 +310,40 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
          *  was not called prior to calling this method
          */
         @Override
-        public void remove() {
+        public void remove() 
+        {
        // Your implementation here
-	        // Placeholder	
+
+	         if(lastItemReturned == null)
+            {
+                throw new IllegalStateException();
+            }
+            else if(index == 0)
+            {
+                throw new NoSuchElementException();
+            }
+            else if (head == tail)
+            {
+                head = null;
+                tail = null;
+            }
+            else if(lastItemReturned == head)
+            {
+                lastItemReturned.next.prev = null;
+                head= head.next;
+            }
+            else if(lastItemReturned == tail)
+            {
+                tail.prev.next = null;
+                tail= tail.prev;
+            }
+            else
+            {
+                lastItemReturned.prev.next = lastItemReturned.next;
+                lastItemReturned.next.prev = lastItemReturned.prev;
+                lastItemReturned = null;
+            }
+            size--;
 
         }
 
@@ -278,7 +355,14 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
         @Override
         public void set(E item) {
        // Your implementation here
-	        // Placeholder
+       if(lastItemReturned == null)
+       {
+           throw new IllegalStateException();
+       }
+       else
+       {
+           lastItemReturned.data = item;
+       }
         }
         
     } 
