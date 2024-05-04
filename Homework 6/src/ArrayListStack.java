@@ -23,7 +23,8 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
     }
 
     @Override
-    public Integer peek() throws EmptyStackException {
+    public Integer peek() throws EmptyStackException 
+    {
         if(arr.isEmpty())
         {
             throw new EmptyStackException();
@@ -34,7 +35,8 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
     }
 
     @Override
-    public Integer pop() throws EmptyStackException {
+    public Integer pop() throws EmptyStackException 
+    {
         
         if(arr.isEmpty())
         {
@@ -46,7 +48,8 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
     }
 
     @Override
-    public Integer push(Integer item) {
+    public Integer push(Integer item) 
+    {
         
         arr.add(item);
         
