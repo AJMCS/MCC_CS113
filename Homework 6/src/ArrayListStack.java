@@ -27,10 +27,10 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
     {
         if(arr.isEmpty())
         {
-            throw new EmptyStackException();
+            throw new EmptyStackException(); // Throw exception if stack is empty
         }else
         {
-            return arr.get(arr.size() - 1);
+            return arr.get(arr.size() - 1); //
         }
     }
 
@@ -51,7 +51,7 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
     public Integer push(Integer item) 
     {
         
-        arr.add(item);
+        arr.add(arr.size() -1, item);
         
         return item;
         
