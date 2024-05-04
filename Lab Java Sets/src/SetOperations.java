@@ -11,58 +11,88 @@ public class SetOperations
         Set<String> fruit = new HashSet();
         String[] fruitNames =  {"Apple", "Orange", "Banana", "Grape"};
             
-        
+        System.out.println("Java Sets: HashSet\n\n");
 
-        System.out.println("Java Sets:");
+
 
         //------ Empty Set (True) ------\\
+
+
 
         System.out.print("We have created a set called fruit. Currently, the Set is empty.");
         System.out.println("Now calling the isEmpty() funtion. Is the set empty?: " + fruit.isEmpty());
 
+
+
         //------ Add Strings to Set ------\\
 
-        System.out.println("\nNext we will add Strings to the set.");
 
+
+        System.out.println("\nNext we will add Strings to the set.");
 
         for(int i = 0; i < fruitNames.length; i++)
         {
             System.out.println("\nAdding " + fruitNames[i] + " to the set");
             fruit.add(fruitNames[i]); //Add string to set
-            System.out.println("Success"); //Let user know the string has been added
+            System.out.println("Success!"); //Let user know the string has been added
             System.out.println("The size of the set is now: " + fruit.size()); //Show user the increased size of the set
         }
 
+        
+        
         //------ Empty Set (False) ------\\
+
+
 
         System.out.println("\nIs the string still empty?: " + fruit.isEmpty());
 
+
+
         //------ Add Duplicate Element ------\\
+
+
 
         System.out.println("\nNext, attempting to add a copy of \"Apple\" in the set...");
         fruit.add("Apple");
-        System.out.println("Sucess: Here the resulting set: " + fruit); //Tell user we successfully used add function for set
+        System.out.println("Sucess!: Here the resulting set: " + fruit); //Tell user we successfully used add function for set
         System.out.println("There cannot be dupicates of the same value in a set, therefore it did not show up."); //Explain to user there are no duplicates allowed in sets
 
+
+
         //------ Contains Method ------\\
+
+
 
         System.out.println("\nUsing the contains() method we will search for \"pineapple\" and \"Banana\" respectively");
         System.out.println("Contains Pineapple?: " + fruit.contains("Pineapple")); //False
         System.out.println("Contains Banana?: " + fruit.contains("Banana")); //True
 
+
+
         //------- Add Element to set -------\\
+
+
+
         System.out.println("\nNext, let's add \"Mango\" to our set:");
         fruit.add("Mango"); //Add "Mango" to set
         System.out.println("Success");
 
+
+
         //------ Remove Method ------\\
+
+
 
         System.out.println("Now, we will use the remove() method to remove \"Grape\" from the set.");
         fruit.remove("Grape"); //Remove grape from set using remove() function
         System.out.println("Here is the set:" + fruit); //Display resulting set to user
         System.out.println("It's current size is: " + fruit.size()); //Display current size to user
 
+
+
         //------ Iterating Through the Set ------\\
+
+
 
         System.out.println("\nNext let's iterate through the set. There are several ways to accomplish this.\n1. Enhanced For-Loop\n2. Lambda println\n3. Using an iterator");
 
@@ -89,7 +119,11 @@ public class SetOperations
             System.out.println(fruitIterator.next()); //Print the string 
         }
 
+
+
         //------ Create Second Set ------\\
+
+
 
         System.out.println("\nCreating a second set of fruit names called fruit2.");
 
@@ -100,6 +134,12 @@ public class SetOperations
         fruit2.add("Date");
         System.out.println("Here is the set:" + fruit2); //Show user the set
         System.out.println("It's current size is: " + fruit2.size()); //Display the size to user
+
+
+
+        //------ Compare Elements in two seperate sets ------\\
+
+
 
         System.out.println("\nNext, let's compare fruit and fruit2");
 
@@ -128,9 +168,31 @@ public class SetOperations
                 }
             }
         }
+
+        //------ ContainsAll() Method ------\\
+
+        System.out.println("\nLastly, Lets compare the sets themselves.\nWe'll check if all the elements inside of them are exactly the same using the containsAll() method.");
         
+        System.out.println("\nfruit: " + fruit);//Show to the user these sets are not equal to each other
+        System.out.println("fruit2: " + fruit2);
+
+        System.out.println("\nAre the sets fruit and fruit2 the same?: " + fruit.containsAll(fruit2));//False
+        System.out.println("Since the elements in fruit and fruit two do not exactly match, the result is false.");//Explain to user why it is false
+        System.out.println("\nNow lets make fruit2 the same as fruit.");
+
+        fruit2 = fruit;
+        System.out.println("Success!");
+        System.out.println("\nfruit: " + fruit);//Show to the user these sets are now equal to each other
+        System.out.println("fruit2: " + fruit2);
+
+        System.out.println("\nNow lets compare them again since they are equal to each other.");
+        System.out.println("Are the sets fruit and fruit2 the same?: " + fruit.containsAll(fruit2));//True
+
+        System.out.println("\nSince the elements in fruit and fruit two now exactly match, the result is true.");//Explain to user why it is true
+
+
+
         System.out.println("\n\nEnding program...");
-        
 
     }
 }
