@@ -30,7 +30,7 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
             throw new EmptyStackException(); // Throw exception if stack is empty
         }else
         {
-            return arr.get(arr.size() - 1); //
+            return arr.get(arr.size() - 1); // return the top of the stack == the last element of the arraylist
         }
     }
 
@@ -40,10 +40,10 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
         
         if(arr.isEmpty())
         {
-            throw new EmptyStackException();
+            throw new EmptyStackException(); // throw exception if stack is empty
         }else
         {
-            return this.pop();
+            return arr.remove(arr.size() - 1);
         }
     }
 
