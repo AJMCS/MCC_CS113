@@ -31,15 +31,21 @@ public class MapBasics
             }
         };
 
+
+
         //------ isEmpty() Method (False) ------\\
 
+
+        
         System.out.println("Java Maps: HashMap\n\n");
 
         System.out.println("We have created a HashMap called fruitStock. Currently it is empty, we'll use the isEmpty() method to veryfy:");
         System.out.println("Is fruitStock Empty?: " + fruitStock.isEmpty());
 
 
+
         //------ Adding Initial Values to HashMap ------\\
+
 
 
         System.out.println("\nNow we will add values to fruitStock: ...");
@@ -77,6 +83,8 @@ public class MapBasics
 
 
         //------ Update, Add, and Remove Elements ------\\
+
+
 
         //Set Method
         System.out.println("\nNow we add will update \"Banana\" to have a stock of 5 using the put() Method");
@@ -129,7 +137,7 @@ public class MapBasics
         System.out.println("\nValues: " + fruitStock.values());
         System.out.println("Does the collection hold the value 3?: " + fruitStock.containsValue(3));
 
-        
+
         System.out.println("\n\nEnding program...");
     }
 }
