@@ -169,8 +169,12 @@ public class SetOperations
             }
         }
 
+
+
         //------ ContainsAll() Method ------\\
 
+
+        
         System.out.println("\nLastly, Lets compare the sets themselves.\nWe'll check if all the elements inside of them are exactly the same using the containsAll() method.");
         
         System.out.println("\nfruit: " + fruit);//Show to the user these sets are not equal to each other
