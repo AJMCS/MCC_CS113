@@ -1,10 +1,14 @@
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.*;
+
 
 public class DriverTest
 {
 
-    Polynomial poly1 = {    new Term(3,2),
+    /* Polynomial poly1 = {    new Term(3,2),
                             new Term(2,1)};
 
     Polynomial poly2 = {    new Term(5, 3),
@@ -32,7 +36,7 @@ public class DriverTest
 
 
 
-
+*/
 
 
 @Test

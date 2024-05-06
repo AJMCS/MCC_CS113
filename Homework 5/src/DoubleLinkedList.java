@@ -292,8 +292,12 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
          * @throws NoSuchElementException if there is no such object
          */
         @Override
-        public E previous() {
-       // Your implementation here
+        public E previous() 
+        {
+            
+            // Your implementation here
+            
+
 	        return 0; // Placeholder, replace with actual return value	
 
         }
