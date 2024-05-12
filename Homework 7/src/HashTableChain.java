@@ -57,11 +57,7 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
             public int hashCode()
             {
-                if(this.getKey() instanceof Integer)
-                {
-                    return (int) this.getKey();
-                }
-                return 0;
+                this.getKey().hashCode();
             }
 
             
@@ -155,6 +151,18 @@ public class HashTableChain<K, V> implements Map<K, V> {
     @Override
     public V put(K key, V value) {
         // TODO: Associate the specified value with the specified key in this map (optional operation).
+        Entry<K, V> temp = new Entry(key, value);
+        
+        while(temp != null)
+        {
+            if(temp.getKey() == key)
+            {
+                V oldValue = temp.getValue();
+                temp.setValue(value);
+                return oldValue;
+            }
+            temp = temp.next;
+        }
 
 
         mapSize++;
@@ -190,9 +198,9 @@ public class HashTableChain<K, V> implements Map<K, V> {
     {
         // TODO: Removes all of the mappings from this map (optional operation).
         
-        for(Entry<K,V> entry : table)
+        for(int i = 0; i < table.length; i++)
         {
-            entry = null;
+            table[i] = null;
         }
     }
 
@@ -239,14 +247,17 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
         for(int i = 0; i < table.length; i++)
         {
-            maps.add(table[i]);
-
-            while(table[i].next != null)
+            
+            if(table[i] != null)
             {
-                maps.add(table[i]);
+                temp = table[i];
+                
+                while(temp != null)
+                {
+                    maps.add(temp);
+                    temp = temp.next;
+                }
             }
-        }
-        
 
         return maps;
     }
