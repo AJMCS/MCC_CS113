@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -66,23 +65,16 @@ public class HashTableChain<K, V> implements Map<K, V>
                 return key.equals(entry.getKey()) && value.equals(entry.getValue());
             }
 
+            @Override
             public int hashCode()
             {
-                return Objects.hash(key, value);
+                return 1;
             }
 
             
             public String toString()
             {
-                return this.key + " = " + this.value;
-            }
-
-            public void addFirst(Entry<K,V> entry) 
-            {
-                // TODO Auto-generated method stub
-                
-                entry.next = this;
-
+                return this.key + "=" + this.value;
             }
     }
 
@@ -272,7 +264,11 @@ public class HashTableChain<K, V> implements Map<K, V>
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-        // TODO: Copies all of the mappings from the specified map to this map (optional operation).
+        // Iterate over each entry in the provided map
+        for (Map.Entry<? extends K, ? extends V> entry : m.entrySet()) {
+            // Add each entry to the current map using the put method
+            this.put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override
@@ -294,11 +290,16 @@ public class HashTableChain<K, V> implements Map<K, V>
 
         Set<K> set = new HashSet<K>();
 
-        for(Entry<K, V> entry : table)
+        for (Entry<K, V> entry : table) 
         {
-            set.add(entry.getKey());
+            Entry<K, V> temp = entry; //temp to traverse through inner linked list
+            
+            while (temp != null) 
+            {
+                set.add(temp.getKey()); //add key to the set
+                temp = temp.next; //move o the next node
+            }
         }
-
         return set;
     }
 
@@ -336,19 +337,6 @@ public class HashTableChain<K, V> implements Map<K, V>
                 maps.add(temp);
                 temp = temp.next;
             }
-                
-                if(table[i] != null)
-                {
-                    temp = table[i];
-                    
-                    while(temp != null)
-                    {
-                        maps.add(temp);
-                        temp = temp.next;
-                    }
-                }
-
-            return maps;
         }
 
         return maps;
