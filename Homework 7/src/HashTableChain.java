@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -10,6 +9,7 @@ import java.util.Set;
  * @param <K> the type of keys maintained by this map
  * @param <V> the type of mapped values
  */
+
 public class HashTableChain<K, V> implements Map<K, V> 
 {
 
@@ -19,7 +19,8 @@ public class HashTableChain<K, V> implements Map<K, V>
         private V value;
         Entry<K, V> next; // Pointer to the next entry in the chain
 
-        Entry(K key, V value) {
+        Entry(K key, V value) 
+        {
             this.key = key;
             this.value = value;
             this.next = null;
@@ -27,10 +28,6 @@ public class HashTableChain<K, V> implements Map<K, V>
 
         // Getters, setters, and possibly equals() and hashCode(), depending on your implementation
 
-        public boolean equals()
-        {
-            return false;
-        }
 
         public K getKey()
             {
@@ -42,22 +39,12 @@ public class HashTableChain<K, V> implements Map<K, V>
                 return this.value;
             }
 
-            public Entry<K, V> getNext()
-            {
-                return this.next;
-            }
-
             @Override
             public V setValue(V value)
             {
                 V oldValue = this.value;
                 this.value = value;
                 return oldValue;
-            }
-
-            public void setNext(Entry<K, V> entry)
-            {
-                this.next = entry;
             }
 
             public boolean equals(Entry<K, V> entry)
@@ -68,7 +55,7 @@ public class HashTableChain<K, V> implements Map<K, V>
             @Override
             public int hashCode()
             {
-                return 1;
+                return getKey().hashCode() ^ getValue().hashCode();
             }
 
             
@@ -179,7 +166,6 @@ public class HashTableChain<K, V> implements Map<K, V>
         }
         temp = temp.next;
     }
-
     return null;
 }
 
@@ -188,6 +174,14 @@ public class HashTableChain<K, V> implements Map<K, V>
     {
         // TODO: Associate the specified value with the specified key in this map (optional operation).
         Entry<K, V> temp = new Entry(key, value);
+
+        int capacity = entrySet().size();
+        
+        if(((mapSize + 1) / (double) capacity) > threshold)
+        {
+            HashTableChain newTable = new HashTableChain<K,V>();
+            putAll(newTable);
+        }
     
         //Initializing values
         int index = key.hashCode() % table.length;
@@ -342,6 +336,22 @@ public class HashTableChain<K, V> implements Map<K, V>
         return maps;
     }
 
-    // TODO: Implement any additional helper methods you need for managing chains and entries.
+    @Override
+    public int hashCode()
+    {
+         return entrySet().hashCode();
+    }
+    
+    @Override
+    public boolean equals(Object other)
+    {
+        if(other instanceof Map map)
+        {
+            return this.entrySet().equals(map.entrySet());
+        }
 
+        return false;
+    }
+
+    // TODO: Implement any additional helper methods you need for managing chains and entries.
 }
