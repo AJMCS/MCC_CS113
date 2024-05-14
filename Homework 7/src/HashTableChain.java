@@ -11,7 +11,8 @@ import java.util.Set;
  * @param <K> the type of keys maintained by this map
  * @param <V> the type of mapped values
  */
-public class HashTableChain<K, V> implements Map<K, V> {
+public class HashTableChain<K, V> implements Map<K, V> 
+{
 
     private static class Entry<K, V> implements Map.Entry<K, V>
     {
@@ -67,7 +68,6 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
             public int hashCode()
             {
-                
                 return Objects.hash(key, value);
             }
 
@@ -195,10 +195,11 @@ public class HashTableChain<K, V> implements Map<K, V> {
     public V put(K key, V value) 
     {
         // TODO: Associate the specified value with the specified key in this map (optional operation).
-
+        Entry<K, V> temp = new Entry(key, value);
+    
         //Initializing values
         int index = key.hashCode() % table.length;
-        Entry<K,V> temp = table[index];
+        temp = table[index];
 
         //If the table at the index is null
         if(table[index] == null)
@@ -235,45 +236,39 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
     @Override
     public V remove(Object key) 
-    {
-        // TODO: Remove the mapping for a key from this map if it is present (optional operation).
-        
-        int index = key.hashCode() % table.length;
-        Entry<K,V> temp = table[index];
-
-        //If the table at the index is null
-        if(table[index] == null)
-        {
-            return null;
-        }
-        else
-        {
-            if(key.equals(temp.getKey())) //Case when there's only a single value in the index for a given hashcode
-            {
-                V value = temp.getValue(); //save the value of the object being removed
-                table[index] = null; //Set current node to point to the node after the one being removed
-                mapSize--;
-                return value; //Return oldValue
-            }
-            while(temp.next != null) //Loop through the chain
-            {
-                //Check each entry to see if this key already exists in the table
-                if(key == temp.next.getKey())
-                {
-                    V value = temp.next.getValue(); //save the value of the object being removed
-                    temp = temp.next.next; //Set current node to point to the node after the one being removed
-                    mapSize--;
-                    return value; // return oldValue
-                }
-                else
-                {
-                    temp = temp.next;
-                }
-            }
-
-            return null;
-        }
+{
+    // Calculate the index
+    int index = key.hashCode() % table.length;
+    if (index < 0) {
+        index = -index; // Handle negative hash codes
     }
+    Entry<K, V> temp = table[index];
+    Entry<K, V> prev = null;
+
+    // If the table at the index is null
+    if (temp == null) {
+        return null;
+    }
+
+    // Check if the first entry is the one to remove
+    while (temp != null) {
+        if (key.equals(temp.getKey())) {
+            V value = temp.getValue();
+            if (prev == null) {
+                // Remove the first entry in the linked list
+                table[index] = temp.next;
+            } else {
+                // Remove the entry in the middle or end of the linked list
+                prev.next = temp.next;
+            }
+            mapSize--;
+            return value;
+        }
+        prev = temp;
+        temp = temp.next;
+    }
+    return null;
+}
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
@@ -329,22 +324,35 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
     @Override
     public Set<Map.Entry<K, V>> entrySet() 
-{
-    Set<Map.Entry<K, V>> maps = new HashSet<>();
-
-    for (int i = 0; i < table.length; i++) 
     {
-        Entry<K, V> temp = table[i];
+        Set<Map.Entry<K, V>> maps = new HashSet<>();
 
-        while (temp != null) 
+        for (int i = 0; i < table.length; i++) 
         {
-            maps.add(temp);
-            temp = temp.next;
-        }
-    }
+            Entry<K, V> temp = table[i];
 
-    return maps;
-}
+            while (temp != null) 
+            {
+                maps.add(temp);
+                temp = temp.next;
+            }
+                
+                if(table[i] != null)
+                {
+                    temp = table[i];
+                    
+                    while(temp != null)
+                    {
+                        maps.add(temp);
+                        temp = temp.next;
+                    }
+                }
+
+            return maps;
+        }
+
+        return maps;
+    }
 
     // TODO: Implement any additional helper methods you need for managing chains and entries.
 
