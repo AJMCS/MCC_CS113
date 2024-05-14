@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -25,6 +27,11 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
         // Getters, setters, and possibly equals() and hashCode(), depending on your implementation
 
+        public boolean equals()
+        {
+            return false;
+        }
+
         public K getKey()
             {
                 return this.key;
@@ -40,9 +47,12 @@ public class HashTableChain<K, V> implements Map<K, V> {
                 return this.next;
             }
 
-            public void setValue(V value)
+            @Override
+            public V setValue(V value)
             {
+                V oldValue = this.value;
                 this.value = value;
+                return oldValue;
             }
 
             public void setNext(Entry<K, V> entry)
@@ -52,16 +62,13 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
             public boolean equals(Entry<K, V> entry)
             {
-                return this.value == entry.value;
+                return key.equals(entry.getKey()) && value.equals(entry.getValue());
             }
 
             public int hashCode()
             {
-                if(this.getKey() instanceof Integer)
-                {
-                    return (int) this.getKey();
-                }
-                return 0;
+                
+                return Objects.hash(key, value);
             }
 
             
@@ -69,10 +76,19 @@ public class HashTableChain<K, V> implements Map<K, V> {
             {
                 return this.key + " = " + this.value;
             }
+
+            public void addFirst(Entry<K,V> entry) 
+            {
+                // TODO Auto-generated method stub
+                
+                entry.next = this;
+
+            }
     }
 
+    
     // TODO: Define the array of entries that will store the chains
-    private Entry<K, V>[] table = null;
+    private Entry<K, V>[] table = new Entry[10];
 
     // TODO: Define other necessary fields (like size, threshold, load factor, etc.)
     private int mapSize;
@@ -100,12 +116,24 @@ public class HashTableChain<K, V> implements Map<K, V> {
     @Override
     public boolean containsKey(Object key) 
     {
-        
-        for(int i = 0; i < table.length; i++)
+        int index = key.hashCode() % table.length;
+
+        if(table[index] == null)
         {
-            if(key == table[i].getKey())
+            return false;
+        }
+
+        Entry<K, V> temp = table[index];
+
+        while(temp != null)
+        {
+            if(temp.getKey().equals(key))
             {
                 return true;
+            }
+            else
+            {
+                temp = temp.next;
             }
         }
 
@@ -116,21 +144,21 @@ public class HashTableChain<K, V> implements Map<K, V> {
     public boolean containsValue(Object value) 
     {
         // TODO: Return true if this map maps one or more keys to the specified value.
-
+ 
         for(int i = 0; i < table.length; i++)
         {
-            
-            if(value == table[i].getValue())
-            {
-                return true;
-            }
+            Entry<K, V> temp = table[i];
 
-            while(table[i].next != null)
+            while(temp != null)
             {
-                if(value == table[i].getValue())
-            {
-                return true;
-            }
+                if(temp.getValue().equals(value))
+                {
+                    return true;
+                }
+                else
+                {
+                    temp = temp.next;
+                }
             }
         }
 
@@ -139,45 +167,112 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
     @Override
     public V get(Object key) 
-    {
-        //Return the value to which the specified key is mapped, or null if this map contains no mapping for the key.
-        for(int i = 0; i < table.length; i++)
-        {
-            if(table[i].getKey() == key)
-            {
-                return table[i].getValue();
-            }
-        }
+{
+    // Return the value to which the specified key is mapped, or null if this map contains no mapping for the key.
 
-        return null;
+    int index = key.hashCode() % table.length;
+    if (index < 0) 
+    {
+        index = -index; // Handle negative hash codes
     }
 
+    Entry<K, V> temp = table[index];
+    
+    // Loop through the linked list at the index
+    while (temp != null) 
+    {
+        if (key.equals(temp.getKey())) 
+        {
+            return temp.getValue();
+        }
+        temp = temp.next;
+    }
+
+    return null;
+}
+
     @Override
-    public V put(K key, V value) {
+    public V put(K key, V value) 
+    {
         // TODO: Associate the specified value with the specified key in this map (optional operation).
 
+        //Initializing values
+        int index = key.hashCode() % table.length;
+        Entry<K,V> temp = table[index];
 
-        mapSize++;
-        return null; // Placeholder
+        //If the table at the index is null
+        if(table[index] == null)
+        {
+            table[index] = new Entry<K, V>(key, value); //place the entry in the table
+            mapSize++; //increase size of map
+            return value;
+        }
+        else
+        {
+            while(temp != null) //Loop through the chain
+            {
+                //Check each entry to see if this key already exists in the table
+                if(key.equals(temp.getKey()))
+                {
+                    V oldValue = temp.getValue();
+                    temp.setValue(value); //If it does, update the value to the new value
+                    return oldValue; // return oldValue
+                }
+                else
+                {
+                    temp = temp.next;
+                }
+            }
+
+            //Add Entry to the beginning of the chain
+            temp = table[index];
+            table[index] = new Entry<K, V>(key, value);
+            table[index].next = temp;
+            mapSize++; //increase size of map
+            return value;
+        }
     }
 
     @Override
     public V remove(Object key) 
     {
         // TODO: Remove the mapping for a key from this map if it is present (optional operation).
-
-        for(int i = 0; i < table.length; i++)
-        {
-            if(table[i].getKey() == key)
-            {
-                Entry<K, V> temp = table[i];
-                table[i] = null;
-                mapSize--;
-                return temp.getValue();
-            }
-        }
         
-        return null;
+        int index = key.hashCode() % table.length;
+        Entry<K,V> temp = table[index];
+
+        //If the table at the index is null
+        if(table[index] == null)
+        {
+            return null;
+        }
+        else
+        {
+            if(key.equals(temp.getKey())) //Case when there's only a single value in the index for a given hashcode
+            {
+                V value = temp.getValue(); //save the value of the object being removed
+                table[index] = null; //Set current node to point to the node after the one being removed
+                mapSize--;
+                return value; //Return oldValue
+            }
+            while(temp.next != null) //Loop through the chain
+            {
+                //Check each entry to see if this key already exists in the table
+                if(key == temp.next.getKey())
+                {
+                    V value = temp.next.getValue(); //save the value of the object being removed
+                    temp = temp.next.next; //Set current node to point to the node after the one being removed
+                    mapSize--;
+                    return value; // return oldValue
+                }
+                else
+                {
+                    temp = temp.next;
+                }
+            }
+
+            return null;
+        }
     }
 
     @Override
@@ -190,10 +285,11 @@ public class HashTableChain<K, V> implements Map<K, V> {
     {
         // TODO: Removes all of the mappings from this map (optional operation).
         
-        for(Entry<K,V> entry : table)
+        for(int i = 0; i < table.length; i++)
         {
-            entry = null;
+            table[i] = null;
         }
+        mapSize = 0;
     }
 
     @Override
@@ -233,23 +329,22 @@ public class HashTableChain<K, V> implements Map<K, V> {
 
     @Override
     public Set<Map.Entry<K, V>> entrySet() 
+{
+    Set<Map.Entry<K, V>> maps = new HashSet<>();
+
+    for (int i = 0; i < table.length; i++) 
     {
-        // TODO: Returns a Set view of the mappings contained in this map.
-        Set<Map.Entry<K,V>> maps = new HashSet<>();
+        Entry<K, V> temp = table[i];
 
-        for(int i = 0; i < table.length; i++)
+        while (temp != null) 
         {
-            maps.add(table[i]);
-
-            while(table[i].next != null)
-            {
-                maps.add(table[i]);
-            }
+            maps.add(temp);
+            temp = temp.next;
         }
-        
-
-        return maps;
     }
+
+    return maps;
+}
 
     // TODO: Implement any additional helper methods you need for managing chains and entries.
 

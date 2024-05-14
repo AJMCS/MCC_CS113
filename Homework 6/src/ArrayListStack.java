@@ -51,7 +51,7 @@ public class ArrayListStack<Integer> implements StackInterface<Integer>
     public Integer push(Integer item) 
     {
         
-        arr.add(arr.size() -1, item);
+        arr.add(arr.size(), item);
         
         return item;
         

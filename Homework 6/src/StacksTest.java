@@ -1,19 +1,17 @@
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.EmptyStackException;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThrows;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StacksTest 
 {
-    
     StackInterface<Integer> stack;
 
-    @Before
-    public void setup() // call this function at the beginning of ever test
+    @BeforeEach
+    public void setup() // call this function at the beginning of every test
     {
         stack = new ArrayListStack<Integer>(); 
     }
@@ -84,5 +82,4 @@ public class StacksTest
     {
         assertThrows(EmptyStackException.class, () -> stack.pop()); //Checks if this call with throw the correct exception
     }
-
 }
