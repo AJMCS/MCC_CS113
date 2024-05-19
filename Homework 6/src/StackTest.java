@@ -7,77 +7,85 @@ import java.util.EmptyStackException;
 /**
  * StackTest: a test class for the given StackInterface implementation using an ArrayList.
  */
-public class StackTest {
+public class StackTest 
+{
 
     /** An object which implements StackInterface. */
     private StackInterface<Integer> stack;
 
     /** This function is executed every single time before each test runs. */
     @BeforeEach
-    public void setup() {
+    public void setup() 
+    {
         stack = new ArrayListStack<Integer>();
     }
 
     @Test
-    public void testEmpty() {
+    public void testEmpty() 
+    {
         // Verify that a call to empty() on an empty stack returns true
-        assertTrue(stack.empty(), "Test Failed - Should start as empty");
+        assertTrue(stack.empty(), "Test should be true (Stack is empty)");
     }
 
     @Test
-    public void testPushAndNotEmpty() {
-        // Push one item into the stack and verify that it isn't empty with empty()
-        stack.push(5);
-        assertFalse(stack.empty(), "Should not be empty");
+    public void testPushAndNotEmpty()
+    {
+        stack.push(1); //push number onto stack
+
+        assertFalse(stack.empty()); // verifies that the stack is no longer empty.
     }
 
     @Test
-    public void testPushAndPeekOnce() {
-        // Push one item into the stack and verify that peek returns that item
-        stack.push(5);
-        assertEquals(5L, (long) stack.peek(), "Expected and actual don't match, only one value was pushed!");
+    public void testPushAndPeekOnce()
+    {
+        stack.push(2); // pushes number onto stack
+        assertEquals((int)2, (int)stack.peek()); // makes sure the peek function returns the correct number back.
     }
 
     @Test
-    public void testPushAndPeekMany() {
-        // Push four integers, 0 through 4, onto the top of the stack and verify that peek() returns the current
-        // integer following its insertion through each iteration
-        for (int i = 0; i < 5; i++) {
+    public void testPushAndPeekMany()
+    {
+        for(int i = 0; i < 20; i++)
+        {
+            stack.push(i); //adds number to stack
+            assertEquals((int) i, (int) stack.peek()); // makes sure the peek is returning the same value as the number that was just pushed.
+        }
+    }
+
+    @Test
+    public void testPeekError()
+    {
+        assertThrows(EmptyStackException.class, () -> stack.peek()); // Checks to see if correct exception is thrown when this function is called.
+    }
+
+    @Test
+    public void testPopOnce()
+    {
+        stack.push(1);
+        int pop = stack.pop();
+
+        assertEquals((int) 1, pop); // verify that item return equals the value of the item pushed.
+        assertTrue(stack.empty()); // Verify the stack is now empty.
+    }
+
+    @Test
+    public void testPopMany()
+    {
+        for (int i = 0; i < 20; i++) //pushes numbers from 0-19 onto stack, where 19 is on top.
+        {
             stack.push(i);
-            assertEquals((long) i, (long) stack.peek(), "Expected and actual don't match, somethings wrong with pushing multiple values?");
+        }
+
+        for(int i = 19; i >= 0; i--)
+        {
+            assertEquals((int) i, (int) stack.pop()); // Checks order of stack by making sure pops equals 19 and decrease by 1 until the stack is empty
         }
     }
 
     @Test
-    public void testPeekError() {
-        // Attempts to call peak() on an empty stack should throw an EmptyStackException
-        assertThrows(EmptyStackException.class, () -> stack.peek(), "Peek should have thrown EmptyStackException!");
+    public void testPopError()
+    {
+        assertThrows(EmptyStackException.class, () -> stack.pop()); //Checks if this call with throw the correct exception
     }
 
-    @Test
-    public void testPopOnce() {
-        // Push one integer into the stack
-        stack.push(71);
-        assertEquals(71L, (long) stack.pop(), "Expected and actual don't match- something's wrong with popping or pushing one value?");
-    }
-
-    @Test
-    public void testPopMany() {
-        // Push 13 integers, 50 through 63, onto the stack
-        for (int i = 50; i <= 63; i++) {
-            stack.push(i);
-        }
-
-        // Values come out in reverse order!
-        for (int i = 63; i >= 50; i--) {
-            assertEquals((long) i, (long) stack.pop(), "Expected and actual don't match- something's wrong with popping or pushing multiple values?");
-        }
-    }
-
-    @Test
-    public void testPopError() {
-        // Attempts to call pop() on an empty stack should throw an EmptyStackException
-        assertThrows(EmptyStackException.class, () -> stack.pop(), "Pop should have thrown EmptyStackException!");
-    }
-
-} // End of class StackTest
+}
