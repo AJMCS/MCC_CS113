@@ -174,13 +174,10 @@ public class HashTableChain<K, V> implements Map<K, V>
     {
         // TODO: Associate the specified value with the specified key in this map (optional operation).
         Entry<K, V> temp = new Entry(key, value);
-
-        int capacity = entrySet().size();
         
-        if(((mapSize + 1) / (double) capacity) > threshold)
+        if(((double) mapSize / table.length) > threshold)
         {
-            HashTableChain newTable = new HashTableChain<K,V>();
-            putAll(newTable);
+            resize();
         }
     
         //Initializing values
@@ -236,6 +233,7 @@ public class HashTableChain<K, V> implements Map<K, V>
         return null;
     }
 
+    
     // Check if the first entry is the one to remove
     while (temp != null) {
         if (key.equals(temp.getKey())) {
@@ -352,6 +350,24 @@ public class HashTableChain<K, V> implements Map<K, V>
 
         return false;
     }
+
+    private void resize() 
+    {
+        Entry<K, V>[] oldTable = table;
+        table = new Entry[oldTable.length * 2];
+
+        mapSize = 0; // Reset size and rehash all entries
+
+        for (Entry<K, V> entry : oldTable) 
+        {
+            while (entry != null) 
+            {
+                put(entry.key, entry.value);
+                entry = entry.next;
+            }
+        }
+    }
+
 
     // TODO: Implement any additional helper methods you need for managing chains and entries.
 }
