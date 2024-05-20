@@ -99,6 +99,7 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
      */
     public Iterator<E> iterator() 
     {
+        
         // Your implementation here
         return new ListIter(0);
     }
@@ -163,10 +164,19 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
      * @return the size of the list
      */
     @Override
-    public int size() {
+    public int size() 
+    {
         // Your implementation here
-        return 0; // Placeholder, replace with actual return value
+        return size; // Placeholder, replace with actual return value
     }
+
+    @Override
+    public void clear()
+    {
+        head = null;
+        size = 0;
+    }
+    
 
     // Inner Classes
     /** 
@@ -248,10 +258,13 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
         @throws NoSuchElementException if there is no such object
          */
         @Override
-        public E next() {
-            if (!hasNext()) {
+        public E next() 
+        {
+            if (!hasNext()) 
+            {
                 throw new NoSuchElementException();
             }
+
             lastItemReturned = nextItem;
             nextItem = nextItem.next;
             index++;
@@ -275,7 +288,7 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
         @Override
         public int nextIndex() {
        // Your implementation here
-	        return 0; // Placeholder, replace with actual return value	
+	        return this.index + 1; // Placeholder, replace with actual return value	
         }
         /**
          * Return the index of the next item to be returned by previous
@@ -284,7 +297,7 @@ public class DoubleLinkedList<E> extends AbstractSequentialList<E> {
         @Override
         public int previousIndex() {
        // Your implementation here
-            return this.index-1;
+            return this.index - 1;
         }
         /**
          * Move the iterator backward and return the previous item.
