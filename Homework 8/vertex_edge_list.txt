@@ -1,0 +1,11 @@
+A
+B
+C
+D
+E
+EDGES
+A B
+B C
+C D
+A D
+E A

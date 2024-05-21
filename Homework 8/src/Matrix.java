@@ -1,6 +1,9 @@
 public class Matrix 
 {
-    boolean [][] matrix;
+    private boolean [][] matrix;
+    private int size;
+
+
 
     Matrix(int size)
     {
