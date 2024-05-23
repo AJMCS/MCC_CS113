@@ -35,7 +35,7 @@ public class main
                 line = fileReader.nextLine();
                 System.out.println(line);
                 vertices.put(line, index); //add vertices to hashmap
-                index ++;
+                index++;
             }
 
             Matrix matrix = new Matrix(index);

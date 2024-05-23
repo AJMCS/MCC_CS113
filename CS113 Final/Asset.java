@@ -5,8 +5,14 @@ public class Asset implements Comparable<Asset>
 
     Asset(String name, int quantity)
     {
-        this.name = name;
-        this.quanitity = quantity;
+        setName(name);
+        setQuantity(quantity);
+    }
+
+    Asset(Asset asset)
+    {
+        name = asset.getName();
+        quantity = asset.getQuantity();
     }
 
     public String getName()
@@ -34,5 +40,17 @@ public class Asset implements Comparable<Asset>
         {
             this.quantity = quantity;
         }
+    }
+
+    @Override
+    public int compareTo(Asset o) 
+    {
+        return this.name.compareTo(o.name);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Asset{name='" + name + "' quantity=" + quantity + "}";
     }
 }
