@@ -10,14 +10,18 @@ public class main
     {
         String fileName = "vertex_edge_list.txt";
         HashMap<String, Integer> vertices = new HashMap();
+        
         File file = new File(fileName);
-        Scanner fileReader = new Scanner(fileName);
+
+        Scanner fileReader = new Scanner(file);
         Scanner userInput = new Scanner(System.in);
         int exit = 0;
         
         
         int index = 0;
         String line = "";
+        String vert1;
+        String vert2;
 
         if(!file.exists() || file.length() == 0) //If file does not exist or there is nothing on the file
         {
@@ -25,28 +29,37 @@ public class main
         }
         else
         {
+            System.out.println("Hashmap");
             while(fileReader.hasNextLine() && line != "EDGES") //while file is not over and have not reached the edges
             {
                 line = fileReader.nextLine();
-
+                System.out.println(line);
                 vertices.put(line, index); //add vertices to hashmap
                 index ++;
             }
 
             Matrix matrix = new Matrix(index);
 
+            System.out.println("addEdge");
             while(fileReader.hasNextLine())
             {
+                String line1;
+                String line2;
+
+
                 line = fileReader.nextLine(); //read from file
-                matrix.addEdge(vertices.get(line.substring(0,1)), vertices.get(line.substring(2))); //add edge associataions
+
+                line1 = line.substring(0,1);
+                line2 = line.substring(2);
+                System.out.println(line1);
+                System.out.println(line2);
+                matrix.addEdge(vertices.get(line.substring(0,1)), vertices.get(line.substring(2))); //add edge associations
             }
 
             matrix.print();
 
             while(exit != 1)
             {
-                String vert1;
-                String vert2;
 
                 System.out.println("Enter first vertex:");
                 vert1 = userInput.nextLine(); //save userinput for vertices q
@@ -59,6 +72,7 @@ public class main
 
                 System.out.println("quit? yes = 1, no = 0"); //primpt user f they would liek to end the program
                 exit = userInput.nextInt();
+                System.out.println();
             }
         }
     }
