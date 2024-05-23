@@ -30,6 +30,9 @@ public class main
         else
         {
             System.out.println("Hashmap");
+            line = fileReader.nextLine();
+            line.trim();
+            
             while(fileReader.hasNextLine() && line != "EDGES") //while file is not over and have not reached the edges
             {
                 line = fileReader.nextLine();
