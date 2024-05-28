@@ -33,7 +33,7 @@ public class main
             line = fileReader.nextLine();
             line.trim();
             
-            while(fileReader.hasNextLine() && line != "EDGES") //while file is not over and have not reached the edges
+            while(fileReader.hasNextLine() && !line.equals("EDGES")) //while file is not over and have not reached the edges
             {
                 line = fileReader.nextLine();
                 System.out.println(line);
