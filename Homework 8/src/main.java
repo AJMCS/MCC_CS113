@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class main 
@@ -20,6 +22,7 @@ public class main
         
         int index = 0;
         String line = "";
+        List <String[]> edges = new ArrayList<>();
         String vert1;
         String vert2;
 
@@ -29,34 +32,31 @@ public class main
         }
         else
         {
-            System.out.println("Hashmap");
-            line = fileReader.nextLine();
-            line.trim();
             
-            while(fileReader.hasNextLine() && !line.equals("EDGES")) //while file is not over and have not reached the edges
+            while(fileReader.hasNextLine() == true && !line.equals("EDGES")) //while file is not over and have not reached the edges
             {
-                line = fileReader.nextLine();
-                System.out.println(line);
-                vertices.put(line, index); //add vertices to hashmap
-                index++;
+                line = fileReader.nextLine().trim(); //read line and trim whitespace
+
+                if(!line.equals("EDGES")); //do this when line read doesn't say 'edges'
+                {
+                    vertices.put(line, index); //add vertices to hashmap
+                    index++; //increase hashmap
+                }
             }
+            vertices.remove("EDGES"); //remove erroneous "EDGE" key from map
+            index--; // decrease size of erroneous entry
 
-            Matrix matrix = new Matrix(index);
+            Matrix matrix = new Matrix(vertices.size());
 
-            System.out.println("addEdge");
+            
+            int i = 0;
             while(fileReader.hasNextLine())
             {
-                String line1;
-                String line2;
+                line = fileReader.nextLine().trim(); //read from file
 
-
-                line = fileReader.nextLine(); //read from file
-
-                line1 = line.substring(0,1);
-                line2 = line.substring(2);
-                System.out.println(line1);
-                System.out.println(line2);
-                matrix.addEdge(vertices.get(line.substring(0,1)), vertices.get(line.substring(2))); //add edge associations
+                edges.add(line.split("\\s+")); //add edges to arraylist
+                matrix.addEdge(vertices.get(edges.get(i)[0]), vertices.get(edges.get(i)[1])); //add edge associations
+                i++;
             }
 
             matrix.print();
@@ -73,9 +73,9 @@ public class main
                 System.out.println(matrix.checkEdge(vertices.get(vert1), vertices.get(vert2))); //print true of false if that association exists
 
 
-                System.out.println("quit? yes = 1, no = 0"); //primpt user f they would liek to end the program
+                System.out.println("quit? yes = 1, no = 0"); //prompt user if they would like to end the program
                 exit = userInput.nextInt();
-                System.out.println();
+                userInput.nextLine();
             }
         }
     }
