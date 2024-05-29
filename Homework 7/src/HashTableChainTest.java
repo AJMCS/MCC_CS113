@@ -240,11 +240,4 @@ public class HashTableChainTest {
         assertEquals("Test size 5 failed - collisive key entries have been added.", 305, hashTable.size());
     }
 
-    // endregion Map tests
-    // region SetIterator tests
-
-    // TODO: "
-
-    // endregion SetIterator tests
-
 } // End of class HashTableChainTest
