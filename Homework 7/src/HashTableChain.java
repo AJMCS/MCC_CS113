@@ -146,28 +146,28 @@ public class HashTableChain<K, V> implements Map<K, V>
 
     @Override
     public V get(Object key) 
-{
-    // Return the value to which the specified key is mapped, or null if this map contains no mapping for the key.
-
-    int index = key.hashCode() % table.length;
-    if (index < 0) 
     {
-        index = -index; // Handle negative hash codes
-    }
+        // Return the value to which the specified key is mapped, or null if this map contains no mapping for the key.
 
-    Entry<K, V> temp = table[index];
-    
-    // Loop through the linked list at the index
-    while (temp != null) 
-    {
-        if (key.equals(temp.getKey())) 
+        int index = key.hashCode() % table.length;
+        if (index < 0) 
         {
-            return temp.getValue();
+            index = -index; // Handle negative hash codes
         }
-        temp = temp.next;
+
+        Entry<K, V> temp = table[index];
+        
+        // Loop through the linked list at the index
+        while (temp != null) 
+        {
+            if (key.equals(temp.getKey())) 
+            {
+                return temp.getValue();
+            }
+            temp = temp.next;
+        }
+        return null;
     }
-    return null;
-}
 
     @Override
     public V put(K key, V value) 
@@ -219,43 +219,44 @@ public class HashTableChain<K, V> implements Map<K, V>
 
     @Override
     public V remove(Object key) 
-{
-    // Calculate the index
-    int index = key.hashCode() % table.length;
-    if (index < 0) {
-        index = -index; // Handle negative hash codes
-    }
-    Entry<K, V> temp = table[index];
-    Entry<K, V> prev = null;
+    {
+        // Calculate the index
+        int index = key.hashCode() % table.length;
+        if (index < 0) {
+            index = -index; // Handle negative hash codes
+        }
+        Entry<K, V> temp = table[index];
+        Entry<K, V> prev = null;
 
-    // If the table at the index is null
-    if (temp == null) {
+        // If the table at the index is null
+        if (temp == null) {
+            return null;
+        }
+
+        
+        // Check if the first entry is the one to remove
+        while (temp != null) {
+            if (key.equals(temp.getKey())) {
+                V value = temp.getValue();
+                if (prev == null) {
+                    // Remove the first entry in the linked list
+                    table[index] = temp.next;
+                } else {
+                    // Remove the entry in the middle or end of the linked list
+                    prev.next = temp.next;
+                }
+                mapSize--;
+                return value;
+            }
+            prev = temp;
+            temp = temp.next;
+        }
         return null;
     }
 
-    
-    // Check if the first entry is the one to remove
-    while (temp != null) {
-        if (key.equals(temp.getKey())) {
-            V value = temp.getValue();
-            if (prev == null) {
-                // Remove the first entry in the linked list
-                table[index] = temp.next;
-            } else {
-                // Remove the entry in the middle or end of the linked list
-                prev.next = temp.next;
-            }
-            mapSize--;
-            return value;
-        }
-        prev = temp;
-        temp = temp.next;
-    }
-    return null;
-}
-
     @Override
-    public void putAll(Map<? extends K, ? extends V> m) {
+    public void putAll(Map<? extends K, ? extends V> m) 
+    {
         // Iterate over each entry in the provided map
         for (Map.Entry<? extends K, ? extends V> entry : m.entrySet()) {
             // Add each entry to the current map using the put method
@@ -337,7 +338,8 @@ public class HashTableChain<K, V> implements Map<K, V>
     @Override
     public int hashCode()
     {
-         return entrySet().hashCode();
+         return 1;
+         //entrySet().hashCode();
     }
     
     @Override
