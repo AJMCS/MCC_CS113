@@ -60,7 +60,13 @@ public class AssetQueue
 
     public void removeAsset(String name)
     {
-        Asset asset = assetMap.remove(name); //store the removed asset
+        if(canRetrieveAsset(name) == false)
+        {
+            System.out.println("Asset is dependent on another asset. Cannot be removed from the matrix.");
+        }
+        else
+        {
+            Asset asset = assetMap.remove(name); //store the removed asset
 
         if(asset == null) //see if the asset exists in the map. if it doesn't it will return null.
         {
@@ -68,6 +74,7 @@ public class AssetQueue
         }
         else
         {
+            //Check the dependencies before you remove an asset
             //remove asset from all data structures
             assetQ.remove(asset);
             priorityQ.remove(asset);
@@ -86,6 +93,8 @@ public class AssetQueue
             }
             numberOfAssets--;
         }
+        }
+        
     }
 
     public Asset retrieveAsset()
